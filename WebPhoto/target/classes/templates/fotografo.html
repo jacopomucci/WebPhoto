@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1><a th:href="@{/home}">WebPhoto</a></h1>
+	<h3>Dettagli fotografo</h3>
+	<ul>
+		<li th:text="${fotografo.nome}">Nome</li>
+		<li th:text="${fotografo.cognome}">Cognome</li>
+	</ul>
+</body>
+</html>

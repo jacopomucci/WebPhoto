@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Registrazione fotografo</h1>
+	<form th:action="@{/addFotografo}" th:object="${fotografo}" method="POST">
+			<label for="nome">Nome: </label>
+			<input type="text" th:field="*{nome}">
+			<label for="cognome">Cognome: </label>
+			<input type="text" th:field="*{cognome}">
+			<button type="submit">Invia</button>
+	</form>
+</body>
+</html>
