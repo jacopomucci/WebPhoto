@@ -8,10 +8,10 @@
 	<h1>Registrazione fotografo</h1>
 	<form th:action="@{/addFotografo}" th:object="${fotografo}" method="POST">
 			<label for="nome">Nome: </label>
-			<input type="text" th:field="*{nome}">
+			<input type="text" th:field="*{name}">
 			<label for="cognome">Cognome: </label>
-			<input type="text" th:field="*{cognome}">
-			<button type="submit">Invia</button>
+			<input type="text" th:field="*{surname}">
+			<button type="submit">Conferma</button>
 	</form>
 </body>
 </html>

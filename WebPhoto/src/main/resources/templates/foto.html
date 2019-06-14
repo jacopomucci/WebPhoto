@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+	<title th:text="${photo.name}">Titolo foto</title>
+</head>
+<body>
+	<div class="header">
+		<a th:href="@{/}">WebPhoto</a>
+	</div>
+	
+	<div class="container">
+		<img src="/images/placeholder.png" width="275" height="183">
+		<h1 th:text="${photo.name}"></h1>
+		<h3>di <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h3>
+		<b>Descrizione: </b><p th:text="${photo.description}">Testo descrizione</p>
+		<h4>Album: <a th:href="@{'/album/' + ${photo.album.id}}" th:text="${photo.album.name}">Nome album</a></h4>
+	</div>
+</body>
+</html>s

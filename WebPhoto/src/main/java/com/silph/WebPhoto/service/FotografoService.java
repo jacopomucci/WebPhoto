@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.silph.WebPhoto.model.Foto;
-import com.silph.WebPhoto.model.Fotografo;
+import com.silph.WebPhoto.model.Photo;
+import com.silph.WebPhoto.model.Photographer;
 import com.silph.WebPhoto.repository.FotografoRepository;
 
 @Service
@@ -17,15 +17,19 @@ public class FotografoService {
 	private FotografoRepository fotografoRepository;
 
 	
-	public void inserisci(Fotografo f) {
+	public void inserisci(Photographer f) {
 		this.fotografoRepository.save(f);
 	}
 	
-	public List<Fotografo> getListaFotografi() {
-		return (List<Fotografo>)this.fotografoRepository.findAll();
+	public List<Photographer> getListaFotografi() {
+		return (List<Photographer>)this.fotografoRepository.findAll();
 	}
 	
-	public Fotografo getById(Long id) {
+	public Photographer getById(Long id) {
 		return this.fotografoRepository.findById(id).get();
+	}
+	
+	public Photographer getByUsername(String username) {
+		return this.fotografoRepository.findByUsername(username);
 	}
 }

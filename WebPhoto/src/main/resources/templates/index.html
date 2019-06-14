@@ -1,12 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>WebPhoto by Silph</title>
+  <title>WebPhoto by Silph</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<h1>WebPhoto</h1>
-	<h2>Welcome in WebPhoto</h2>
-	<p><a th:href="@{/admin}">Wanna login?</a></p>
+
+<div class="jumbotron text-center">
+  <h1>WebPhoto</h1>
+  <p>Benvenuto su WebPhoto by Silph</p> 
+</div>
+  
+<div class="container">
+  <div class="row">
+    <div th:each="photo: ${photos}" class="col-sm-4">
+    	<img src="/images/placeholder.png" width="275" height="183">
+      <h3><a th:text="${photo.name}" th:href="@{'/photo/' + ${photo.id}}">Foto 1</a></h3>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

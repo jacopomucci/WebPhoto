@@ -5,33 +5,24 @@
 <title>Carica foto</title>
 </head>
 <body>
-	<h1>Carica foto</h1>
-	<form th:action="@{/addFoto}" method="POST" th:object="${foto}">
 	<div>
-		<label for="nome">Nome: </label>
-		<input type="text" th:field="*{nome}">
+		<h1>Carica foto</h1>
 	</div>
+	
 	<div>
-		<div>
-		Fotografo: 
-		<select th:field="*{autore}">
-	  		<option th:each="fotografo : ${allFotografi}" 
-	          th:value="${autore}" 
-	          th:text="${fotografo.nome}">Nome fotografo</option>
-		</select>
+		<form method="POST" enctype="multipart/form-data" action="/uploadFoto">
+			<table>
+				<tr>
+					<td>Nome: <input type="text" name="nome"></td>
+				</tr>
+				<tr>
+					<td><input type="file" name="photo"/></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Carica</button></td>
+				</tr>
+			</table>
+		</form>
 	</div>
-	</div>
-	<div>
-		Album: 
-		<select th:field="*{album}">
-	  		<option th:each="album : ${allAlbum}" 
-	          th:value="${album}" 
-	          th:text="${album.nome}">Nome album</option>
-		</select>
-	</div>
-	<div>
-		<button type="submit">Carica foto</button>
-	</div>
-	</form>
 </body>
 </html>

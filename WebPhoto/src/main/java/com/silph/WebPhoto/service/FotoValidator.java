@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import com.silph.WebPhoto.model.Foto;
-import com.silph.WebPhoto.model.Fotografo;
+import com.silph.WebPhoto.model.Photo;
+import com.silph.WebPhoto.model.Photographer;
 
 @Component
 public class FotoValidator implements Validator{
@@ -18,7 +18,7 @@ public class FotoValidator implements Validator{
 	
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return Foto.class.equals(clazz);
+		return Photo.class.equals(clazz);
 	}
 
 	@Override

@@ -21,4 +21,9 @@ public class AlbumService {
 	public List<Album> allAlbum() {
 		return (List<Album>)this.albumRepository.findAll();
 	}
+	
+	public Album getAlbum(Long id) {
+		return this.albumRepository.findById(id).get();
+	}
+
 }

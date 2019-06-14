@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+	<title th:text="${album.name}">Nome Album</title>
+</head>
+<body>
+
+	<div class="header">
+		<a th:href="@{/}">WebPhoto</a>
+	</div>
+
+	<div class="container">	
+		<h1 th:text="${album.name}">Nome album</h1>
+		<h3>Autore: <a th:href="@{'/' + ${album.author.username}}" th:text="${album.author.name} + ' ' + ${album.author.surname}">Nome autore</a></h3>
+	
+	<h1>Foto in questo album</h1>
+	<ul>
+		<li th:each="photo: ${photos}">
+			<a th:href="@{'/photo/' + ${photo.id}}" th:text="${photo.name}">Nome foto</a>
+		</li>
+	</ul>
+	
+	</div>
+</body>
+</html>

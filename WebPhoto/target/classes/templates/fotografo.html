@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
+	<title th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome fotografo</title>
 </head>
 <body>
-	<h1><a th:href="@{/home}">WebPhoto</a></h1>
-	<h3>Dettagli fotografo</h3>
-	<ul>
-		<li th:text="${fotografo.nome}">Nome</li>
-		<li th:text="${fotografo.cognome}">Cognome</li>
-	</ul>
+	<div class="header">
+		<a th:href="@{/}">WebPhoto</a>
+	</div>
+	
+	<div class="container">
+		<img src="/images/placeholder-profile.jpg" width="491px" height="491px">
+			<h2 th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h2>
+	
+		<h3>Foto pubblicate di recente</h3>
+		<ul>
+			<li th:each="photo: ${photos}">
+				<a th:href="@{'/photo/' + ${photo.id}}" th:text="${photo.name}">Foto</a>
+			</li>
+		</ul>
+	</div>
 </body>
 </html>

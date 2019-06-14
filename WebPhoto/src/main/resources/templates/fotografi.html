@@ -9,7 +9,7 @@
 	<h1>Fotografi:</h1>
 	<ul>
 		<li th:each="fotografo: ${fotografi}">
-			<a th:href="@{'/fotografo/' + ${fotografo.id}}" th:text="${fotografo.nome}">Nome fotografo</a>
+			<a th:href="@{'/fotografo/' + ${fotografo.id}}" th:text="${fotografo.name}">Nome fotografo</a>
 		</li>
 	</ul>
 </body>

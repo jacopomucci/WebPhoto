@@ -1,7 +1,5 @@
 package com.silph.WebPhoto.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,31 +8,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Album {
-	
+public class Photo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
+	private String description;
 	
 	@ManyToOne
 	private Photographer author;
+	@ManyToOne
+	private Album album;
 	
-	@OneToMany(mappedBy="album")
-	private List<Photo> photos;
-	
-	public Album() {
+	public Photo() {
+		
 	}
 	
-	public Album(String name, Photographer author) {
+	public Photo(String name, String description, Photographer author, Album album) {
 		this.name = name;
+		this.description = description;
 		this.author = author;
+		this.album = album;
 	}
 	
 	public Long getId() {
 		return id;
 	}
-	
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -42,25 +41,34 @@ public class Album {
 	public String getName() {
 		return name;
 	}
-	
-	public void setName(String nome) {
-		this.name = nome;
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Photographer getAuthor() {
-		return author;
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public void setAuthor(Photographer author) {
 		this.author = author;
 	}
 
-	public List<Photo> getPhotos() {
-		return photos;
+	public Photographer getAuthor() {
+		return author;
+	}
+	public void setAutore(Photographer author) {
+		this.author = author;
+	}
+	public Album getAlbum() {
+		return album;
+	}
+	public void setAlbum(Album album) {
+		this.album = album;
 	}
 
-	public void setPhotos(List<Photo> fotografie) {
-		this.photos = fotografie;
-	}
-	
 }
