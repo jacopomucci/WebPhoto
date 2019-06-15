@@ -5,31 +5,30 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.silph.WebPhoto.model.Photo;
 import com.silph.WebPhoto.model.Photographer;
-import com.silph.WebPhoto.repository.FotografoRepository;
+import com.silph.WebPhoto.repository.PhotographerRepository;
 
 @Service
-public class FotografoService {
+public class PhotographerService {
 
 	
 	@Autowired
-	private FotografoRepository fotografoRepository;
+	private PhotographerRepository photographerRepository;
 
 	
 	public void inserisci(Photographer f) {
-		this.fotografoRepository.save(f);
+		this.photographerRepository.save(f);
 	}
 	
 	public List<Photographer> getListaFotografi() {
-		return (List<Photographer>)this.fotografoRepository.findAll();
+		return (List<Photographer>)this.photographerRepository.findAll();
 	}
 	
 	public Photographer getById(Long id) {
-		return this.fotografoRepository.findById(id).get();
+		return this.photographerRepository.findById(id).get();
 	}
 	
 	public Photographer getByUsername(String username) {
-		return this.fotografoRepository.findByUsername(username);
+		return this.photographerRepository.findByUsername(username);
 	}
 }

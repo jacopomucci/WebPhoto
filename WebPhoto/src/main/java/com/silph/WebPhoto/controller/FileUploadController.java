@@ -33,7 +33,7 @@ public class FileUploadController {
 	
 
     
-    @PostMapping("/uploadPhoto")
+    @PostMapping("/uploadPhoto1")
     public String handleFileUpload(@RequestParam("photo") MultipartFile image,
             RedirectAttributes redirectAttributes, Model model) {
     	StringBuilder fileNames = new StringBuilder();

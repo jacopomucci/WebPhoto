@@ -10,33 +10,35 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.silph.WebPhoto.model.Album;
 import com.silph.WebPhoto.model.Photo;
 import com.silph.WebPhoto.model.Photographer;
-import com.silph.WebPhoto.repository.FotografoRepository;
+import com.silph.WebPhoto.repository.PhotographerRepository;
 import com.silph.WebPhoto.service.AlbumService;
-import com.silph.WebPhoto.service.FotoService;
-import com.silph.WebPhoto.service.FotoValidator;
-import com.silph.WebPhoto.service.FotografoService;
+import com.silph.WebPhoto.service.PhotoService;
+import com.silph.WebPhoto.service.PhotoValidator;
+import com.silph.WebPhoto.service.PhotographerService;
 
 @Controller
 public class WebPhotoController {
 
 	@Autowired
-	private FotografoService fotografoService;
+	private PhotographerService photographerService;
 	@Autowired
-	private FotoService fotoService;
+	private PhotoService photoService;
 	@Autowired
-	private FotoValidator fotoValidator;
+	private PhotoValidator photoValidator;
 	@Autowired
 	private AlbumService albumService;
 	
 	@RequestMapping("/") 
 	public String home(Model model) {
-		model.addAttribute("photos", this.fotoService.getAllFoto());
-		model.addAttribute("photographers", this.fotografoService.getListaFotografi());
+		model.addAttribute("photos", this.photoService.getAllFoto());
+		model.addAttribute("photographers", this.photographerService.getListaFotografi());
 		return "index.html";
 	}
 	
@@ -45,21 +47,22 @@ public class WebPhotoController {
 		return "admin.html";
 	}
 	
-	@RequestMapping("/allFotografi")
+	@RequestMapping("/photographers")
 	public String getListaFotografi(Model model) {
-		model.addAttribute("fotografi", this.fotografoService.getListaFotografi());
+		model.addAttribute("photographers", this.photographerService.getListaFotografi());
 		return "fotografi.html";
 	}
 	
 	@RequestMapping("/{username}")
 	public String getFotografo(@PathVariable("username") String username, Model model) {
-		Photographer photographer = this.fotografoService.getByUsername(username);
+		Photographer photographer = this.photographerService.getByUsername(username);
 		model.addAttribute("photographer", photographer);
-		model.addAttribute("photos", this.fotoService.getAllPhotoByAuthor(photographer));
-		return "fotografo.html";
+		model.addAttribute("photos", this.photoService.getAllPhotoByAuthor(photographer));
+		model.addAttribute("album", this.albumService.getByAuthor(photographer));
+		return "photographer";
 	}
 	
-	@RequestMapping("/newFotografo")
+	@RequestMapping("/newPhotographer")
 	public String newStudente(Model model) {
 		model.addAttribute("fotografo", new Photographer());
 		return "fotografoForm.html";
@@ -67,37 +70,63 @@ public class WebPhotoController {
 	
 	@RequestMapping("/addFotografo")
 	public String addFotografo(@ModelAttribute("fotografo") Photographer fotografo, Model model) {
-		this.fotografoService.inserisci(fotografo);
+		this.photographerService.inserisci(fotografo);
 		return this.getListaFotografi(model);
-	}
-	
-	@RequestMapping("/newFoto") 
-	public String newFoto(Model model) {
-		model.addAttribute("foto", new Photo());
-		model.addAttribute("allFotografi", this.fotografoService.getListaFotografi());
-		model.addAttribute("allAlbum", this.albumService.allAlbum());
-		return "fotoForm.html";
 	}
 	
 	@RequestMapping("/photo/{id}")
 	public String getFoto(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("photo", this.fotoService.getFoto(id));
-		return "foto.html";
+		model.addAttribute("photo", this.photoService.getFoto(id));
+		return "photo.html";
 	}
 	
-	@RequestMapping("/album/{id}") 
-	public String getAlbum(@PathVariable("id") Long id, Model model) {
-		Album album = this.albumService.getAlbum(id);
-		model.addAttribute("album", album);
-		model.addAttribute("photos", this.fotoService.getPhotosByAlbum(album));
-		return "album.html";
+	@RequestMapping("/{username}/album/{name}") 
+	public String getAlbum(@PathVariable("username") String username,
+							@PathVariable("name") String albumName, Model model) {
+		Photographer author = photographerService.getByUsername(username);
+		Album album = this.albumService.getByAuthorAndName(author, albumName);
+		if (album != null) {
+			model.addAttribute("album", album);
+			model.addAttribute("photos", this.photoService.getPhotosByAlbum(album));
+			return "album.html";
+		} else {
+			return "NotFound.html";
+		}
 	}
 	
-
-	@RequestMapping(value = "/addFoto", method = RequestMethod.POST)
-	public String addNewFoto(@ModelAttribute("foto") Photo foto, Model model) {
+	@RequestMapping(value = "/uploadPhoto", method= RequestMethod.GET) 
+	public String newFoto(Model model) {
+		model.addAttribute("photo", new Photo());
+		return "photoForm.html";
+	}
+	
+	@RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
+	public String uploadPhoto(@Valid @ModelAttribute("photo") Photo photo,
+								BindingResult bindingResult,
+								@RequestParam("author") String username,
+								@RequestParam("album") String albumName,
+								Model model, WebRequest request) {
 		
-		this.fotoService.caricaFoto(foto);
-		return home(model);
+		this.photoValidator.validate(photo, bindingResult);{
+	
+			Photographer author = this.photographerService.getByUsername(username);
+			if (author != null) {
+				Album album = this.albumService.getByAuthorAndName(author, albumName);
+				if (album != null) {
+					Photo newPhoto = new Photo(photo.getName(), photo.getDescription(), author, album);
+					this.photoService.upload(newPhoto);
+					model.addAttribute("photos", this.photoService.getAllFoto());
+					return "index";
+				} else {
+					model.addAttribute("msg", "Questo fotografo non ha nessun album con questo nome");
+					return newFoto(model);
+				}
+			} else {
+				model.addAttribute("msg", "Non esiste nessun fotografo con questo username");
+				return newFoto(model);
+			}
+		}
+
 	}
+	
 }

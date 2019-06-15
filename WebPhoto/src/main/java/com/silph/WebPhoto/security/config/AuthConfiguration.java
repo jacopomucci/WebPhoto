@@ -36,13 +36,14 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/admin").hasAnyAuthority("ADMIN")
-			.anyRequest().authenticated()
-		.and().formLogin()
-			.defaultSuccessUrl("/welcome")
-		.and().logout()
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/");
+			.antMatchers(HttpMethod.POST, "/**").permitAll();
+			//.antMatchers(HttpMethod.GET, "/admin").hasAnyAuthority("ADMIN")
+		//	.anyRequest().authenticated()
+	//	.and().formLogin()
+	//		.defaultSuccessUrl("/welcome")
+	//	.and().logout()
+	//		.logoutUrl("/logout")
+	//		.logoutSuccessUrl("/");
 	}
 	
 	

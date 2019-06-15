@@ -15,7 +15,7 @@
 		<h1 th:text="${photo.name}"></h1>
 		<h3>di <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h3>
 		<b>Descrizione: </b><p th:text="${photo.description}">Testo descrizione</p>
-		<h4>Album: <a th:href="@{'/album/' + ${photo.album.id}}" th:text="${photo.album.name}">Nome album</a></h4>
+		<h4>Album: <a th:href="@{'/' + ${photo.author.username} + '/album/' + ${photo.album.name}}" th:text="${photo.album.name}">Nome album</a></h4>
 	</div>
 </body>
-</html>s
+</html>

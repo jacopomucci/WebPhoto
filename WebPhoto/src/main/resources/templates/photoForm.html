@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Carica foto</title>
+</head>
+<body>
+	<div>
+		<h1>Carica foto</h1>
+	</div>
+	
+	<div>
+		<span th:text="${msg}">Messaggio di errore</span>
+		<form method="POST" th:action="@{/uploadPhoto}" th:object="${photo}">
+			<table>
+				<tr>
+					<td>Nome: </td><td><input type="text" th:field="*{name}"></td>
+					<td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errore nome</td>
+				</tr>
+				<tr>
+					<td>Descrizione:</td><td><input type="text" th:field="*{description}"></td>
+					<td th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Errore descrizione</td>
+				</tr>
+				<tr>
+					<td>Autore:</td><td><input type="text" name="author"></td>
+				</tr>
+				<tr>
+					<td>Album:</td><td><input type="text" name="album"></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Carica</button></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</body>
+</html>

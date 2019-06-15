@@ -16,11 +16,11 @@ public class DbPopulation implements ApplicationRunner {
 		@Autowired
 		private UserRepository userRepository;
 		@Autowired
-		private FotografoRepository fotografoRepository;
+		private PhotographerRepository fotografoRepository;
 		@Autowired
 		private AlbumRepository albumRepository;
 		@Autowired
-		private FotoRepository fotoRepository;
+		private PhotoRepository fotoRepository;
 		
 		@Override
 		public void run(ApplicationArguments agrs) throws Exception {
@@ -49,11 +49,11 @@ public class DbPopulation implements ApplicationRunner {
 			albumRepository.save(a1);
 			albumRepository.save(a2);
 			
-			Photo photo1 = new Photo("Tramonto", "Un bel tramonto", f1, a2);
+			Photo photo1 = new Photo("Tramonto", "Un bel tramonto", f2, a2);
 			fotoRepository.save(photo1);
 			Photo photo2 = new Photo("Roma", "Una bella città", f1, a1);
 			fotoRepository.save(photo2);
-			Photo photo3 = new Photo("Milano", "Una bella città", f2, a1);
+			Photo photo3 = new Photo("Milano", "Una bella città", f1, a1);
 			fotoRepository.save(photo3);
 		}
 }

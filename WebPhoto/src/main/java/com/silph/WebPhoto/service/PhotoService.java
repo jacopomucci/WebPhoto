@@ -8,32 +8,32 @@ import org.springframework.stereotype.Service;
 import com.silph.WebPhoto.model.Album;
 import com.silph.WebPhoto.model.Photo;
 import com.silph.WebPhoto.model.Photographer;
-import com.silph.WebPhoto.repository.FotoRepository;
+import com.silph.WebPhoto.repository.PhotoRepository;
 
 @Service
-public class FotoService {
+public class PhotoService {
 
 	@Autowired
-	private FotoRepository fotoRepository;
+	private PhotoRepository photoRepository;
 	
-	public void caricaFoto(Photo foto) {
-		this.fotoRepository.save(foto);
+	public void upload(Photo foto) {
+		this.photoRepository.save(foto);
 	}
 	
 	public List<Photo> getAllFoto() {
-		return (List<Photo>)this.fotoRepository.findAll();
+		return (List<Photo>)this.photoRepository.findAll();
 	}
 	
 	public Photo getFoto(Long id) {
-		return this.fotoRepository.findById(id).get();
+		return this.photoRepository.findById(id).get();
 	}
 	
 	public List<Photo> getAllPhotoByAuthor(Photographer f) {
-		return (List<Photo>)this.fotoRepository.findByAuthor(f);
+		return (List<Photo>)this.photoRepository.findByAuthor(f);
 	}
 	
 	public List<Photo> getPhotosByAlbum(Album album) {
-		return (List<Photo>)this.fotoRepository.findByAlbum(album);
+		return (List<Photo>)this.photoRepository.findByAlbum(album);
 	}
 
 }

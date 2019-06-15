@@ -20,6 +20,13 @@
 				<a th:href="@{'/photo/' + ${photo.id}}" th:text="${photo.name}">Foto</a>
 			</li>
 		</ul>
+		
+		<h3>Album di questo fotografo</h3>
+		<ul>
+			<li th:each="a: ${album}">
+				<a th:href="@{'/' + ${photographer.username} + '/album/' + ${a.name}}" th:text="${a.name}">Nome album</a>
+			</li>
+		</ul>
 	</div>
 </body>
 </html>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.silph.WebPhoto.model.Album;
+import com.silph.WebPhoto.model.Photographer;
 import com.silph.WebPhoto.repository.AlbumRepository;
 
 @Service
@@ -22,8 +23,23 @@ public class AlbumService {
 		return (List<Album>)this.albumRepository.findAll();
 	}
 	
-	public Album getAlbum(Long id) {
+	public Album getById(Long id) {
 		return this.albumRepository.findById(id).get();
 	}
-
+	
+	public List<Album> getByAuthor(Photographer author) {
+		return this.albumRepository.findByAuthor(author);
+	}
+	
+	public Album getByAuthorAndName(Photographer author, String name) {
+		List<Album> album = this.getByAuthor(author);
+		Album albumR = null;
+		for(Album a: album) {
+			if(a.getName().equals(name)) {
+				albumR = a;
+			}
+		}
+		
+		return albumR;
+	}
 }

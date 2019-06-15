@@ -11,7 +11,7 @@ import com.silph.WebPhoto.model.Photographer;
 
 
 @Repository
-public interface FotoRepository extends CrudRepository<Photo, Long>{
+public interface PhotoRepository extends CrudRepository<Photo, Long>{
 
 	public List<Photo> findByAuthor(Photographer author);
 	public List<Photo> findByAlbum(Album album);
