@@ -17,7 +17,13 @@
 </div>
   
 <div class="container">
-<a href="/admin">Area Riservata</a>
+<ul>
+	<li><a href="/photos">Foto</a></li>
+	<li><a href="/photographers">Fotografi</a></li>
+	<li><a href="/admin">Area Riservata</a></li>
+	
+</ul>
+
   <div class="row">
     <div th:each="photo: ${photos}" class="col-sm-4">
     	<img src="/images/placeholder.png" width="275" height="183">

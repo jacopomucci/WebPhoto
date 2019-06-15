@@ -15,7 +15,7 @@ public class AlbumService {
 	@Autowired
 	private AlbumRepository albumRepository;
 	
-	public Album salva(Album album) {
+	public Album save(Album album) {
 		return this.albumRepository.save(album);
 	}
 	

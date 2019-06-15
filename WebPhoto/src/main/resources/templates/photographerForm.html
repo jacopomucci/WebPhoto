@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Registra fotografo</title>
+</head>
+<body>
+	<h1>Registrazione fotografo</h1>
+	<form th:action="@{/newPhotographer}" th:object="${photographer}" method="POST">
+			<table>
+				<tr>
+					<td>Username:</td><td><input type="text" th:field="*{username}"></td>
+				</tr>
+				<tr>
+					<td>Nome:</td><td><input type="text" th:field="*{name}"></td>
+				</tr>
+				<tr>
+					<td>Cognome:</td><td><input type="text" th:field="*{surname}"></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Conferma</button></td>
+				</tr>
+			
+			</table>
+	</form>
+</body>
+</html>

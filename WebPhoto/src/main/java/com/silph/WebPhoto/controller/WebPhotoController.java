@@ -47,11 +47,7 @@ public class WebPhotoController {
 		return "admin.html";
 	}
 	
-	@RequestMapping("/photographers")
-	public String getListaFotografi(Model model) {
-		model.addAttribute("photographers", this.photographerService.getListaFotografi());
-		return "fotografi.html";
-	}
+	
 	
 	@RequestMapping("/{username}")
 	public String getFotografo(@PathVariable("username") String username, Model model) {
@@ -62,23 +58,11 @@ public class WebPhotoController {
 		return "photographer";
 	}
 	
-	@RequestMapping("/newPhotographer")
-	public String newStudente(Model model) {
-		model.addAttribute("fotografo", new Photographer());
-		return "fotografoForm.html";
-	}
 	
-	@RequestMapping("/addFotografo")
-	public String addFotografo(@ModelAttribute("fotografo") Photographer fotografo, Model model) {
-		this.photographerService.inserisci(fotografo);
-		return this.getListaFotografi(model);
-	}
 	
-	@RequestMapping("/photo/{id}")
-	public String getFoto(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("photo", this.photoService.getFoto(id));
-		return "photo.html";
-	}
+	
+	
+	
 	
 	@RequestMapping("/{username}/album/{name}") 
 	public String getAlbum(@PathVariable("username") String username,
@@ -92,41 +76,6 @@ public class WebPhotoController {
 		} else {
 			return "NotFound.html";
 		}
-	}
-	
-	@RequestMapping(value = "/uploadPhoto", method= RequestMethod.GET) 
-	public String newFoto(Model model) {
-		model.addAttribute("photo", new Photo());
-		return "photoForm.html";
-	}
-	
-	@RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
-	public String uploadPhoto(@Valid @ModelAttribute("photo") Photo photo,
-								BindingResult bindingResult,
-								@RequestParam("author") String username,
-								@RequestParam("album") String albumName,
-								Model model, WebRequest request) {
-		
-		this.photoValidator.validate(photo, bindingResult);{
-	
-			Photographer author = this.photographerService.getByUsername(username);
-			if (author != null) {
-				Album album = this.albumService.getByAuthorAndName(author, albumName);
-				if (album != null) {
-					Photo newPhoto = new Photo(photo.getName(), photo.getDescription(), author, album);
-					this.photoService.upload(newPhoto);
-					model.addAttribute("photos", this.photoService.getAllFoto());
-					return "index";
-				} else {
-					model.addAttribute("msg", "Questo fotografo non ha nessun album con questo nome");
-					return newFoto(model);
-				}
-			} else {
-				model.addAttribute("msg", "Non esiste nessun fotografo con questo username");
-				return newFoto(model);
-			}
-		}
-
 	}
 	
 }

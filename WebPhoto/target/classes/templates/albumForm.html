@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Registra fotografo</title>
+</head>
+<body>
+	<h1>Nuovo album</h1>
+	<form th:action="@{/newAlbum}" th:object="${album}" method="POST">
+			<table>
+				<tr>
+					<td>Fotografo:</td><td><input type="text" name= "username"></td><td th:text="${msgErr}">Errore se presente</td>
+				</tr>
+				<tr>
+					<td>Nome album:</td><td><input type="text" th:field="*{name}"></td>
+				</tr>
+				<tr>
+					<td><button type="submit">Conferma</button></td>
+				</tr>
+			
+			</table>
+	</form>
+</body>
+</html>
