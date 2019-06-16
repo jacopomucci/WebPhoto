@@ -3,6 +3,8 @@ package com.silph.WebPhoto.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,9 +44,23 @@ public class WebPhotoController {
 		return "index.html";
 	}
 	
+	@RequestMapping("/welcome")
+	public String welcome(Model model) {
+		UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String role = details.getAuthorities().iterator().next().getAuthority();
+		model.addAttribute("username", details.getUsername());
+		model.addAttribute("role", role);
+		
+		return "welcome";
+	}
+	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String adminPanel() {
-		return "admin.html";
+	public String admin(Model model) {
+		UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String role = details.getAuthorities().iterator().next().getAuthority();
+		model.addAttribute("username", details.getUsername());
+		
+		return "admin";
 	}
 	
 	

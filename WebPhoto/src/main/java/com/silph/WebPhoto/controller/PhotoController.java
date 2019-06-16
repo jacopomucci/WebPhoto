@@ -33,13 +33,13 @@ public class PhotoController {
 	@Autowired
 	private PhotographerService photographerService;
 	
-	@RequestMapping(value = "/uploadPhoto", method= RequestMethod.GET) 
+	@RequestMapping(value = "/admin/uploadPhoto", method= RequestMethod.GET) 
 	public String newFoto(Model model) {
 		model.addAttribute("photo", new Photo());
 		return "photoForm.html";
 	}
 	
-	@RequestMapping(value = "/uploadPhoto", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/uploadPhoto", method = RequestMethod.POST)
 	public String uploadPhoto(@Valid @ModelAttribute("photo") Photo photo,
 								BindingResult bindingResult,
 								@RequestParam("author") String username,
@@ -72,6 +72,11 @@ public class PhotoController {
 	public String getFoto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("photo", this.photoService.getFoto(id));
 		return "photo.html";
+	}
+	
+	@RequestMapping("/photos")
+	public String photos(Model model) {
+		return "photos";
 	}
 	
 	

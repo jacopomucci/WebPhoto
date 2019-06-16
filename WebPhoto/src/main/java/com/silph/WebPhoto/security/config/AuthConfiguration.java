@@ -1,6 +1,8 @@
 package com.silph.WebPhoto.security.config;
 
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -15,20 +17,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebSecurity
 @Configuration
+@EnableWebSecurity
 public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private Environment environment;
 	
-	// private DataSource dataSource;
-	
-//	@Autowired
-//	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) {
-//			throws Exception {
-//		auth.jdbcAuthentication().dataSource(this.buildDataSource());
-//	}
+	private DataSource dataSource;
 				
 	
 	@Override
@@ -36,24 +32,38 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/**").permitAll()
-			.antMatchers(HttpMethod.POST, "/**").permitAll();
-			//.antMatchers(HttpMethod.GET, "/admin").hasAnyAuthority("ADMIN")
-		//	.anyRequest().authenticated()
-	//	.and().formLogin()
-	//		.defaultSuccessUrl("/welcome")
-	//	.and().logout()
-	//		.logoutUrl("/logout")
-	//		.logoutSuccessUrl("/");
+			.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
+			.anyRequest().authenticated()
+		.and().formLogin()
+			.defaultSuccessUrl("/admin")
+		.and().logout()
+			.logoutUrl("/logout")
+			.logoutSuccessUrl("/");
+	}
+	
+	@Autowired
+	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(this.buildDatasource())
+			.authoritiesByUsernameQuery("SELECT username, role FROM users WHERE username=?")
+			.usersByUsernameQuery("SELECT username, password, 1 as enabled FROM users WHERE username=?");
 	}
 	
 	
-//	@Bean
-//	DataSource buildDataSource() {}
-//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
-//        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
-//        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
-//        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
+	@Bean
+	DataSource buildDatasource() {
+		
+		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(environment.getProperty("spring.datasource.driver-class-name"));
+        dataSource.setUrl(environment.getProperty("spring.datasource.url"));
+        dataSource.setUsername(environment.getProperty("spring.datasource.username"));
+        dataSource.setPassword(environment.getProperty("spring.datasource.password"));
+        
+        return dataSource;
+	}
 	
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
 
 }

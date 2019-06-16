@@ -6,12 +6,12 @@
 </head>
 <body>
 	<h1><a th:href="@{/}">WebPhoto</a></h1>
-	<h3>Benvenuto, admin</h3>
-	
+	<h3>Benvenuto, <span th:utext="${username}"></span>!</h3>
 	<ul>
-	<li><a th:href="@{/uploadPhoto}">Carica nuova foto</a></li>
-	<li><a th:href="@{/newPhotographer}">Registra fotografo</a></li>
-	<li><a th:href="@{/newAlbum}">Crea album</a></li>
+		<li><a href="/admin/uploadPhoto">Carica nuova foto</a></li>
+		<li><a href="/admin/newPhotographer">Registra fotografo</a></li>
+		<li><a href="/admin/newAlbum">Crea album</a></li>
+		<li><a href="/logout">Effettua logout</a></li>
 	</ul>
 </body>
 </html>

@@ -21,13 +21,13 @@ public class AlbumController {
 	@Autowired
 	private PhotographerService photographerService;
 	
-	@RequestMapping(value = "/newAlbum", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/newAlbum", method = RequestMethod.GET)
 	public String newPhotographer(Model model) {
 		model.addAttribute("album", new Album());
 		return "albumForm.html";
 	}
 	
-	@RequestMapping(value = "/newAlbum", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/newAlbum", method = RequestMethod.POST)
 	public String addFotografo(@ModelAttribute("album") Album album, Model model, WebRequest request) {
 		Photographer photographer = this.photographerService.getByUsername(request.getParameter("username"));
 		if (photographer != null) {

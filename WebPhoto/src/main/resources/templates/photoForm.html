@@ -11,7 +11,7 @@
 	
 	<div>
 		<span th:text="${msg}">Messaggio di errore</span>
-		<form method="POST" th:action="@{/uploadPhoto}" th:object="${photo}">
+		<form method="POST" th:action="@{/admin/uploadPhoto}" th:object="${photo}">
 			<table>
 				<tr>
 					<td>Nome: </td><td><input type="text" th:field="*{name}"></td>

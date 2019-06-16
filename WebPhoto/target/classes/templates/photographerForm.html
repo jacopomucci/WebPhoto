@@ -6,7 +6,7 @@
 </head>
 <body>
 	<h1>Registrazione fotografo</h1>
-	<form th:action="@{/newPhotographer}" th:object="${photographer}" method="POST">
+	<form th:action="@{/admin/newPhotographer}" th:object="${photographer}" method="POST">
 			<table>
 				<tr>
 					<td>Username:</td><td><input type="text" th:field="*{username}"></td>

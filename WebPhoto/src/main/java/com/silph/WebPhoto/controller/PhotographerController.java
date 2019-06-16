@@ -17,19 +17,19 @@ public class PhotographerController {
 	private PhotographerService photographerService;
 	
 	
-	@RequestMapping("/photographers")
+	@RequestMapping("photographers")
 	public String getListaFotografi(Model model) {
 		model.addAttribute("photographers", this.photographerService.getListaFotografi());
 		return "photographers";
 	}
 	
-	@RequestMapping(value = "/newPhotographer", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.GET)
 	public String newPhotographer(Model model) {
 		model.addAttribute("photographer", new Photographer());
 		return "photographerForm.html";
 	}
 	
-	@RequestMapping(value = "/newPhotographer", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.POST)
 	public String addFotografo(@ModelAttribute("photographer") Photographer photographer, Model model) {
 		this.photographerService.inserisci(photographer);
 		return ("redirect:/" + photographer.getUsername());

@@ -3,9 +3,9 @@ package com.silph.WebPhoto.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.silph.WebPhoto.model.Utente;
+import com.silph.WebPhoto.model.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<Utente, Long>{
+public interface UserRepository extends CrudRepository<User, Long>{
 
 }
