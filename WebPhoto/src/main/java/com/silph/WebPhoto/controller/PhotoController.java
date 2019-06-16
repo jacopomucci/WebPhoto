@@ -67,6 +67,11 @@ public class PhotoController {
 
 	}
 	
+	@RequestMapping("/request/{id}") 
+	public String request(@PathVariable("id") Long id, Model model) {
+		return "request";
+	}
+	
 	
 	@RequestMapping("/photo/{id}")
 	public String getFoto(@PathVariable("id") Long id, Model model) {
@@ -76,7 +81,7 @@ public class PhotoController {
 	
 	@RequestMapping("/photos")
 	public String photos(Model model) {
-		return "photos";
+		return ("redirect:/");
 	}
 	
 	

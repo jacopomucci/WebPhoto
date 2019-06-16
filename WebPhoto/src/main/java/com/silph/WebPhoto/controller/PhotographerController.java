@@ -26,7 +26,7 @@ public class PhotographerController {
 	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.GET)
 	public String newPhotographer(Model model) {
 		model.addAttribute("photographer", new Photographer());
-		return "photographerForm.html";
+		return "photographerForm";
 	}
 	
 	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.POST)
