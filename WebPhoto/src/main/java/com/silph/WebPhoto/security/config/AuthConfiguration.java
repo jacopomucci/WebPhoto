@@ -32,7 +32,9 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		http
 		.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
+			.antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("ADMIN")
 			.anyRequest().authenticated()
 		.and().formLogin()
 			.defaultSuccessUrl("/admin")

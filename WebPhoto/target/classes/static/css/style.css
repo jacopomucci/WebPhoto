@@ -1,0 +1,15 @@
+@charset "ISO-8859-1";
+
+.jumbotron {
+	margin-bottom: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.container {
+	
+}
+
+.card {
+	margin-bottom: 20px;
+}
