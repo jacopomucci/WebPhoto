@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import com.silph.WebPhoto.model.Album;
@@ -28,8 +29,10 @@ public class AlbumController {
 	}
 	
 	@RequestMapping(value = "/admin/newAlbum", method = RequestMethod.POST)
-	public String addFotografo(@ModelAttribute("album") Album album, Model model, WebRequest request) {
-		Photographer photographer = this.photographerService.getByUsername(request.getParameter("username"));
+	public String addFotografo(@ModelAttribute("album") Album album,
+								@RequestParam("author") String author, 
+								Model model, WebRequest request) {
+		Photographer photographer = this.photographerService.getByUsername(author);
 		if (photographer != null) {
 			album.setAuthor(photographer);
 			this.albumService.save(album);
