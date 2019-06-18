@@ -37,16 +37,16 @@
 		<h1>Carica foto</h1>
 	
 		<span th:text="${msg}">Messaggio di errore</span>
-		<form th:action="@{/admin/uploadPhoto}" method="POST" th:object="${photo}">
+		<form th:action="@{/admin/uploadPhoto}" enctype="multipart/form-data" method="POST">
 			<div class="form-group">
 				<label for="name">Nome: </label>
-				<input type="text" class="form-control" placeholder="Fontana di Trevi" th:field="*{name}">
-				<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errore nome</span>
+				<input type="text" class="form-control" placeholder="Fontana di Trevi" name="name">
+				
 			</div>
 			<div class="form-group">
 				<label for="descrizione">Descrizione: </label>
-				<input type="text" class="form-control" placeholder="Una bella fontana.." th:field="*{description}">
-				<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Errore descrizione</span>
+				<input type="text" class="form-control" placeholder="Una bella fontana.." name="description">
+
 			</div>
 			<div class="form-group">
 				<label for="author">Autore: </label>
@@ -55,6 +55,9 @@
 			<div class="form-group">
 				<label for="album">Album: </label>
 				<input type="text" class="form-control" name="album" placeholder="Fontane">
+			</div>
+			<div class="form-group">
+				<input type="file" name="imageFile">
 			</div>
 				<button type="submit" class="btn btn-primary">Carica</button>
 		</form>

@@ -48,7 +48,6 @@ public class WebPhotoController {
 	public String home(HttpServletRequest request, Model model) {
 		model.addAttribute("photos", this.photoService.getAllFoto());
 		model.addAttribute("photographers", this.photographerService.getListaFotografi());
-		request.getSession().setAttribute("photosRequested", new ArrayList<Photo>());
 		return "index.html";
 	}
 	

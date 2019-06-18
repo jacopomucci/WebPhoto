@@ -30,7 +30,12 @@
   </nav>
 	
 	<div class="container" style="margin-top: 30px">
-		<img src="/images/placeholder.png" width="275" height="183">
+		<div th:if="${photo.fileName}">
+			<img th:src="@{${'/uploads/' + photo.fileName}}">
+		</div>
+		<div th:unless="${photo.fileName}">
+			<img src="/images/placeholder.png">	
+		</div>
 		<h1 th:text="${photo.name}"></h1>
 		<h5 th:text="${photo.description}">Testo descrizione</h5>
 		<h3>di <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h3>

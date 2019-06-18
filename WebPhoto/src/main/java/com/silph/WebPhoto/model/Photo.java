@@ -16,6 +16,8 @@ public class Photo {
 	private Long id;
 	private String name;
 	private String description;
+	private String path;
+	private String fileName;
 	
 	@ManyToOne
 	private Photographer author;
@@ -72,5 +74,23 @@ public class Photo {
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+	
+	
 
 }
