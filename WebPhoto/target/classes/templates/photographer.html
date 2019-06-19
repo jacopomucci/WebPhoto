@@ -33,10 +33,15 @@
   </nav>
 	<div class="container">
 		<div class="row">
-			<div class="card col-md-8">
-				<img class="card-img-top" src="/images/placeholder-profile.jpg" style="width:30%">
-				<h2 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h2>
+		<div class="col">
+			<div class="card d-flex flex-row flex-wrap">
+				<img src="/images/placeholder-profile.png">
+				<div class="card-block px-4">
+					<h4 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h4>
+					<p class="card-text" th:text="'Bio: ' +${photographer.biography}">Biografia</p>
+				</div>
 			</div>
+		</div>
 		</div>
 		
 		<h3>Foto pubblicate di recente</h3>
@@ -50,7 +55,6 @@
 	          <div class="card-body">
 	            <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
 	            <p class="card-text" th:text="${photo.description}">Descrizione</p>
-	            <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a>
 	            <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
 	            	<input type="hidden" name="photoRequested" th:value="${photo.id}">
 		            <button class="btn btn-primary">Richiedi</button>
@@ -59,7 +63,7 @@
 	        </div>
 	      </div>
 	    </div>
-		<h3>Album di questo fotografo</h3>
+		<h3>Album di questo fotografo: </h3>
 			<ul>
 				<li th:each="a: ${album}">
 					<a th:href="@{'/' + ${photographer.username} + '/album/' + ${a.name}}" th:text="${a.name}">Nome album</a>

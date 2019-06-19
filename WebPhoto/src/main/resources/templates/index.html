@@ -14,8 +14,8 @@
 <body>
 
   <div class="jumbotron text-center">
-    <h1>WebPhoto</h1>
-    <p>by <a href="http://informatica.ing.uniroma3.it/">Silph</a></p>
+    <h1>SILPH WebPhoto</h1>
+    <p>
   </div>
 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -55,7 +55,9 @@
           <div class="card-body">
             <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
             <p class="card-text" th:text="${photo.description}">Descrizione</p>
-            <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a>
+            <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a></p>
+            <img class="card-text" src="/images/heart.png">
+            <p class="card-text" th:text="${photo.likes}">Mi piace</p>
             <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
             	<input type="hidden" name="photoRequested" th:value="${photo.id}">
 	            <button class="btn btn-primary">Richiedi</button>

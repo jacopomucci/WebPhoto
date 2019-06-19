@@ -16,11 +16,11 @@ public class PhotographerService {
 	private PhotographerRepository photographerRepository;
 
 	
-	public void inserisci(Photographer f) {
+	public void save(Photographer f) {
 		this.photographerRepository.save(f);
 	}
 	
-	public List<Photographer> getListaFotografi() {
+	public List<Photographer> getAll() {
 		return (List<Photographer>)this.photographerRepository.findAll();
 	}
 	

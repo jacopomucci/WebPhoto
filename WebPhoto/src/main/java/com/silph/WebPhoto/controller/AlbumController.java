@@ -37,7 +37,7 @@ public class AlbumController {
 		if (photographer != null) {
 			Album album = new Album(albumName, photographer);
 			this.albumService.save(album);
-			return ("redirect:/" + author + "/album/" + albumName);
+			return ("redirect:/" + author);
 		} else {
 			model.addAttribute("errMsg", "Fotografo non esistente");
 			return "albumForm";

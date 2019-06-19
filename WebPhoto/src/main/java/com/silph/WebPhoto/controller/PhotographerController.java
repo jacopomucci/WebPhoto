@@ -49,7 +49,7 @@ public class PhotographerController {
 	
 	@RequestMapping("photographers")
 	public String getListaFotografi(Model model) {
-		model.addAttribute("photographers", this.photographerService.getListaFotografi());
+		model.addAttribute("photographers", this.photographerService.getAll());
 		return "photographers";
 	}
 	
@@ -61,7 +61,7 @@ public class PhotographerController {
 	
 	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.POST)
 	public String addFotografo(@ModelAttribute("photographer") Photographer photographer, Model model) {
-		this.photographerService.inserisci(photographer);
+		this.photographerService.save(photographer);
 		return ("redirect:/" + photographer.getUsername());
 	}
 	

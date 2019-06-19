@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.silph.WebPhoto.model.Album;
 import com.silph.WebPhoto.model.Photo;
+import com.silph.WebPhoto.model.PhotoForm;
 import com.silph.WebPhoto.model.Photographer;
 import com.silph.WebPhoto.service.AlbumService;
 import com.silph.WebPhoto.service.PhotoService;
@@ -37,46 +38,45 @@ public class PhotoController {
 	
 	@RequestMapping(value = "/admin/uploadPhoto", method= RequestMethod.GET) 
 	public String newFoto(Model model) {
-		model.addAttribute("photo", new Photo());
+		model.addAttribute("photoForm", new PhotoForm());
 		return "uploadPhotoForm";
 	}
 	
 	@RequestMapping(value = "/admin/uploadPhoto", method = RequestMethod.POST)
-	public String uploadPhoto(
-								@RequestParam("imageFile") MultipartFile imageFile,
-								@RequestParam("name") String name,
-								@RequestParam("description") String description,
-								@RequestParam("author") String username,
-								@RequestParam("album") String albumName,
-								Model model) {
+	public String uploadPhoto(@Valid @ModelAttribute("photoForm") PhotoForm photoForm,
+								Model model, BindingResult bindingResult,
+								@RequestParam("imageFile") MultipartFile imageFile) {
 		
-		 // this.photoValidator.validate(photo, bindingResult);{
-	
-			Photographer author = this.photographerService.getByUsername(username);
+ 		this.photoValidator.validate(photoForm, bindingResult);
+ 		if(!bindingResult.hasErrors()) {
+			Photographer author = this.photographerService.getByUsername(photoForm.getAuthor());
 			if (author != null) {
-				Album album = this.albumService.getByAuthorAndName(author, albumName);
+				Album album = this.albumService.getByAuthorAndName(author, photoForm.getAlbum());
 				if (album != null) {
-					Photo newPhoto = new Photo(name, description, author, album);
-					newPhoto.setFileName(imageFile.getOriginalFilename());
+					Photo photo = new Photo(photoForm.getName(), photoForm.getDescription(), author, album);
+					photo.setFileName(imageFile.getOriginalFilename());
 					try {
-						photoService.savePhotoImage(imageFile, newPhoto);
+						photoService.savePhotoImage(imageFile, photo);
 					} catch (Exception e) {
 						e.printStackTrace();
 						//log.error("Error saving photo", e);
-						model.addAttribute("uploadError", "Errore nel salvataggio della foto");
+						model.addAttribute("uploadErr", "Errore nel salvataggio della foto");
 						return "uploadPhotoForm";
 					}
-					this.photoService.save(newPhoto);
-					return ("redirect:/photo/" + newPhoto.getId());
+					this.photoService.save(photo);
+					return ("redirect:/photo/" + photo.getId());
 				} else {
-					model.addAttribute("msg", "Questo fotografo non ha nessun album con questo nome");
+					model.addAttribute("albumErr", "Questo fotografo non ha nessun album con questo nome");
 					return newFoto(model);
 				}
 			} else {
-				model.addAttribute("msg", "Non esiste nessun fotografo con questo username");
+				model.addAttribute("photographerErr", "Non esiste nessun fotografo con questo username");
 				return newFoto(model);
 			}
-		}
+	 	} else {
+	 		return "uploadPhotoForm";
+	 	}
+	}
 
 	@RequestMapping(value = "/admin/uploadImage", method = RequestMethod.POST)
     public ModelAndView handleFileUpload(@RequestParam("imageFile") MultipartFile imageFile, 

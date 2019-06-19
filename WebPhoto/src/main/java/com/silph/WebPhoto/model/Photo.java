@@ -16,6 +16,7 @@ public class Photo {
 	private Long id;
 	private String name;
 	private String description;
+	private int likes;
 	private String path;
 	private String fileName;
 	
@@ -33,6 +34,7 @@ public class Photo {
 		this.description = description;
 		this.author = author;
 		this.album = album;
+		this.likes = 0;
 	}
 	
 	public Long getId() {
@@ -58,14 +60,18 @@ public class Photo {
 		this.description = description;
 	}
 
-	public void setAuthor(Photographer author) {
-		this.author = author;
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 
 	public Photographer getAuthor() {
 		return author;
 	}
-	public void setAutore(Photographer author) {
+	public void setAuthor(Photographer author) {
 		this.author = author;
 	}
 	public Album getAlbum() {

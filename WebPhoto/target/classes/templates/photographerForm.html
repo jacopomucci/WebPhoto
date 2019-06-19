@@ -45,6 +45,10 @@
 				<span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Errore cognome</span>
 			</div>
 			<div class="form-group">
+				<label for="surname">Biografia: </label>
+				<input type="text" class="form-control" placeholder="Appassionato di viaggi e di fotografia" th:field="*{biography}">
+			</div>
+			<div class="form-group">
 				<label for="username">Username: </label>
 				<input type="text" class="form-control" th:field="*{username}" placeholder="MarioR">
 				<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Errore username</span>

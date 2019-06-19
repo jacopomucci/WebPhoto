@@ -22,6 +22,7 @@ public class Photographer {
 	private String username;
 	private String name;
 	private String surname;
+	private String biography;
 	
 	@OneToMany(mappedBy="author")
 	private List<Photo> photos;
@@ -33,10 +34,11 @@ public class Photographer {
 		
 	}
 	
-	public Photographer(String username, String name, String surname) {
+	public Photographer(String username, String name, String surname, String bio) {
 		this.username = username;
 		this.name = name;
 		this.surname = surname;
+		this.biography = bio;
 	}
 	
 	public Long getId() {
@@ -70,6 +72,22 @@ public class Photographer {
 		this.surname = surname;
 	}
 	
+	public String getBiography() {
+		return biography;
+	}
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+	public List<Album> getAlbum() {
+		return album;
+	}
+
+	public void setAlbum(List<Album> album) {
+		this.album = album;
+	}
+
 	public List<Photo> getPhotos() {
 		return photos;
 	}

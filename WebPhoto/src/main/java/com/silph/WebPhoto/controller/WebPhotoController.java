@@ -47,7 +47,7 @@ public class WebPhotoController {
 	@RequestMapping("/") 
 	public String home(HttpServletRequest request, Model model) {
 		model.addAttribute("photos", this.photoService.getAllFoto());
-		model.addAttribute("photographers", this.photographerService.getListaFotografi());
+		model.addAttribute("photographers", this.photographerService.getAll());
 		return "index.html";
 	}
 	
