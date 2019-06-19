@@ -23,20 +23,21 @@ public class AlbumController {
 	private PhotographerService photographerService;
 	
 	@RequestMapping(value = "/admin/newAlbum", method = RequestMethod.GET)
-	public String newPhotographer(Model model) {
-		model.addAttribute("album", new Album());
-		return "albumForm.html";
+	public String newAlbumForm(Model model) {
+		
+		return "albumForm";
 	}
 	
 	@RequestMapping(value = "/admin/newAlbum", method = RequestMethod.POST)
-	public String addFotografo(@ModelAttribute("album") Album album,
+	public String createAlbum( @RequestParam("name") String albumName,
 								@RequestParam("author") String author, 
-								Model model, WebRequest request) {
+								Model model) {
+		
 		Photographer photographer = this.photographerService.getByUsername(author);
 		if (photographer != null) {
-			album.setAuthor(photographer);
+			Album album = new Album(albumName, photographer);
 			this.albumService.save(album);
-			return ("redirect:/" + photographer.getUsername() + "/album/" + album.getName());
+			return ("redirect:/" + author + "/album/" + albumName);
 		} else {
 			model.addAttribute("errMsg", "Fotografo non esistente");
 			return "albumForm";

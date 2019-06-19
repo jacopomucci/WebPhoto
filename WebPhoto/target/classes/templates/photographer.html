@@ -32,38 +32,39 @@
 	   	</ul>
   </nav>
 	<div class="container">
-		<div class="card col-md-4">
-			<img class="card-img-top" src="/images/placeholder-profile.jpg" >
-			<h2 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h2>
+		<div class="row">
+			<div class="card col-md-8">
+				<img class="card-img-top" src="/images/placeholder-profile.jpg" style="width:30%">
+				<h2 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h2>
+			</div>
 		</div>
-		<h3>Foto pubblicate di recente</h3>
-	<div class="row">
-      <div class="col-md-4" th:each="photo: ${photos}">
-        <div class="card col-mb-4 shadow-md">
-          <a th:href="@{'/photo/' + ${photo.id}}">
-          	<img th:if="${photo.fileName}" class="card-img-top" th:src="@{${'/uploads/' + photo.fileName}}" style="width:100%">
-          	<img th:unless="${photo.fileName}" class="card-img-top" src="/images/placeholder.png" style="width:100%">
-          </a>
-          <div class="card-body">
-            <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
-            <p class="card-text" th:text="${photo.description}">Descrizione</p>
-            <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a>
-            <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
-            	<input type="hidden" name="photoRequested" th:value="${photo.id}">
-	            <button class="btn btn-primary">Richiedi</button>
-            </form>
-         </div>
-        </div>
-      </div>
-    </div>
 		
-	<h3>Album di questo fotografo</h3>
-	<div class="row">
-		<ul>
-			<li th:each="a: ${album}">
-				<a th:href="@{'/' + ${photographer.username} + '/album/' + ${a.name}}" th:text="${a.name}">Nome album</a>
-			</li>
-		</ul>
+		<h3>Foto pubblicate di recente</h3>
+		<div class="row">
+	      <div class="col-md-4" th:each="photo: ${photos}">
+	        <div class="card col-mb-4 shadow-md">
+	          <a th:href="@{'/photo/' + ${photo.id}}">
+	          	<img th:if="${photo.fileName}" class="card-img-top" th:src="@{${'/uploads/' + photo.fileName}}" style="width:100%">
+	          	<img th:unless="${photo.fileName}" class="card-img-top" src="/images/placeholder.png" style="width:100%">
+	          </a>
+	          <div class="card-body">
+	            <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
+	            <p class="card-text" th:text="${photo.description}">Descrizione</p>
+	            <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a>
+	            <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
+	            	<input type="hidden" name="photoRequested" th:value="${photo.id}">
+		            <button class="btn btn-primary">Richiedi</button>
+	            </form>
+	         </div>
+	        </div>
+	      </div>
+	    </div>
+		<h3>Album di questo fotografo</h3>
+			<ul>
+				<li th:each="a: ${album}">
+					<a th:href="@{'/' + ${photographer.username} + '/album/' + ${a.name}}" th:text="${a.name}">Nome album</a>
+				</li>
+			</ul>
 	</div>
 	
 </body>

@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Carica foto</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/style.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<title>Nuovo album</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -31,16 +29,17 @@
 	<div class="container">
 		<h1>Nuovo album</h1>
 	
-		<span th:text="${msg}">Messaggio di errore</span>
-		<form th:action="@{/admin/newAlbum}" method="POST" th:object="${album}">
+		<span th:text="${errMsg}">Messaggio di errore</span>
+		<form th:action="@{/admin/newAlbum}" method="POST">
 			<div class="form-group">
 				<label for="name">Nome album: </label>
-				<input type="text" class="form-control" placeholder="Fontane" th:field="*{name}">
-				<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Errore nome</span>
+				<input type="text" class="form-control" name="name" placeholder="Natura">
+
 			</div>
 			<div class="form-group">
 				<label for="author">Autore: </label>
 				<input type="text" class="form-control" name="author" placeholder="MarioR">
+				<small class="form-text text-muted">Inserisci un fotografo gi&agrave; esistente</small>
 			</div>
 			<button type="submit" class="btn btn-primary">Crea</button>
 		</form>
