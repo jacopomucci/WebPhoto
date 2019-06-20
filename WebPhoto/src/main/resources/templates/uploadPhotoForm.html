@@ -39,12 +39,12 @@
 		
 			<div class="form-group">
 				<label for="name">Nome: </label>
-				<input type="text" class="form-control" placeholder="Fontana di Trevi" name="name" th:field="*{name}">
+				<input type="text" class="form-control" placeholder="Foresta nera" name="name" th:field="*{name}">
 				<p class="alert alert-warning" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect name</p>
 			</div>
 			<div class="form-group">
 				<label for="descrizione">Descrizione: </label>
-				<input type="text" class="form-control" placeholder="Una bella fontana.." name="description" th:field="*{description}">
+				<input type="text" class="form-control" placeholder="La Foresta Nera è una regione montuosa del sud-ovest della Germania..." name="description" th:field="*{description}">
 				<p class="alert alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Incorrect name</p>
 			</div>
 			<div class="form-group">
@@ -56,7 +56,7 @@
 			</div>
 			<div class="form-group">
 				<label for="album">Album: </label>
-				<input type="text" class="form-control" name="album" placeholder="Fontane" th:field="*{album}">
+				<input type="text" class="form-control" name="album" placeholder="Natura" th:field="*{album}">
 				<small class="form-text text-muted">Inserisci un album gi&agrave; esistente. Oppure <a href="/admin/newAlbum">crealo ora</a></small>
 				<p class="alert alert-warning" th:if="${#fields.hasErrors('album')}" th:errors="*{album}">Incorrect name</p>
 			</div>

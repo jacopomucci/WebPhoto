@@ -40,7 +40,7 @@
 		<div th:unless="${photo.fileName}">
 			<img src="/images/placeholder.png">	
 		</div>
-		<i class="fas fa-heart"></i><span class="card-text" th:text="'  ' + ${photo.likes}"></span>
+		<p style="margin-top: 10px">Questa foto ha ricevuto <span class="card-text" th:text="'  ' + ${photo.likes}"></span> <i class="fas fa-heart"></i>
 		<h1 th:text="${photo.name}"></h1>
 		<h5 th:text="${photo.description}">Testo descrizione</h5>
 		<h3>di <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h3>
