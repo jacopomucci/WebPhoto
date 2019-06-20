@@ -17,6 +17,8 @@
   <div class="jumbotron text-center">
     <h1>SILPH WebPhoto</h1>
     <p>
+		Un modo semplice e veloce per mettere in contatto fotografi ed editori!
+    </p>
   </div>
 
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -45,8 +47,8 @@
   </nav>
 
   <div class="container">
-
-    <div class="row">
+	<h1>Le foto pi&ugrave; popolari</h1>
+    <div class="row" style="margin-top:30px">
       <div class="col-md-4" th:each="photo: ${photos}">
         <div class="card col-mb-4 shadow-md">
           <a th:href="@{'/photo/' + ${photo.id}}">
