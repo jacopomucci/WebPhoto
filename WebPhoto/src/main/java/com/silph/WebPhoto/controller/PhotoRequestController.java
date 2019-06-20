@@ -59,6 +59,7 @@ public class PhotoRequestController {
 		photoRequestService.save(photoRequest);
 		PhotoRequest newPhotoRequest = new PhotoRequest();
 		model.addAttribute("photoRequest", newPhotoRequest);
+		model.addAttribute("alert-success", "true");
 		return "requestConfirm";
 	}
 	
