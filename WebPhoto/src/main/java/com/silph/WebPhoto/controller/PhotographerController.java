@@ -1,8 +1,11 @@
 package com.silph.WebPhoto.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +16,7 @@ import com.silph.WebPhoto.model.Photographer;
 import com.silph.WebPhoto.service.AlbumService;
 import com.silph.WebPhoto.service.PhotoService;
 import com.silph.WebPhoto.service.PhotographerService;
+import com.silph.WebPhoto.service.PhotographerValidator;
 
 @Controller
 public class PhotographerController {
@@ -23,6 +27,9 @@ public class PhotographerController {
 	private PhotographerService photographerService;
 	@Autowired
 	private AlbumService albumService;
+	
+	@Autowired
+	private PhotographerValidator photographerValidator;
 	
 	@RequestMapping("/{username}")
 	public String getFotografo(@PathVariable("username") String username, Model model) {
@@ -60,9 +67,15 @@ public class PhotographerController {
 	}
 	
 	@RequestMapping(value = "/admin/newPhotographer", method = RequestMethod.POST)
-	public String addFotografo(@ModelAttribute("photographer") Photographer photographer, Model model) {
-		this.photographerService.save(photographer);
-		return ("redirect:/" + photographer.getUsername());
+	public String addFotografo(@Valid @ModelAttribute("photographer") Photographer photographer,
+								Model model, BindingResult bindingResult) {
+		this.photographerValidator.validate(photographer, bindingResult);
+		if(!bindingResult.hasErrors()) {
+			this.photographerService.save(photographer);
+			return ("redirect:/" + photographer.getUsername());
+		} else {
+			return "photographerForm";
+		}
 	}
 	
 }
