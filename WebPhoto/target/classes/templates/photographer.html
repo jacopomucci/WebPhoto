@@ -7,6 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+	
 	<link rel="stylesheet" href="/css/style.css">
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -44,7 +46,7 @@
 		</div>
 		</div>
 		
-		<h3>Foto pubblicate di recente</h3>
+		<h3>Foto pi&ugrave; popolari</h3>
 		<div class="row">
 	      <div class="col-md-4" th:each="photo: ${photos}">
 	        <div class="card col-mb-4 shadow-md">
@@ -53,6 +55,7 @@
 	          	<img th:unless="${photo.fileName}" class="card-img-top" src="/images/placeholder.png" style="width:100%">
 	          </a>
 	          <div class="card-body">
+	          	<i class="fas fa-heart"></i><span class="card-text" th:text="'  ' + ${photo.likes}"></span>
 	            <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
 	            <p class="card-text" th:text="${photo.description}">Descrizione</p>
 	            <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">

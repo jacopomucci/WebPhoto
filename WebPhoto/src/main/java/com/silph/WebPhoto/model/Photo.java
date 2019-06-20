@@ -10,13 +10,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="photos")
-public class Photo {
+public class Photo implements Comparable<Photo> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String description;
-	private int likes;
+	private Integer likes;
 	private String path;
 	private String fileName;
 	
@@ -60,11 +60,11 @@ public class Photo {
 		this.description = description;
 	}
 
-	public int getLikes() {
+	public Integer getLikes() {
 		return likes;
 	}
 
-	public void setLikes(int likes) {
+	public void setLikes(Integer likes) {
 		this.likes = likes;
 	}
 
@@ -95,6 +95,11 @@ public class Photo {
 
 	public void setFileName(String fileName) {
 		this.fileName = fileName;
+	}
+
+	@Override
+	public int compareTo(Photo o) {
+		return this.getLikes().compareTo(o.getLikes());
 	}
 	
 	

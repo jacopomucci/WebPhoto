@@ -28,7 +28,7 @@ public class PhotographerController {
 	public String getFotografo(@PathVariable("username") String username, Model model) {
 		Photographer photographer = this.photographerService.getByUsername(username);
 		model.addAttribute("photographer", photographer);
-		model.addAttribute("photos", this.photoService.getAllPhotoByAuthor(photographer));
+		model.addAttribute("photos", this.photoService.getPhotosByAuthor(photographer));
 		model.addAttribute("album", this.albumService.getByAuthor(photographer));
 		return "photographer";
 	}

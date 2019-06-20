@@ -3,6 +3,7 @@ package com.silph.WebPhoto.service;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -39,19 +40,27 @@ public class PhotoService {
 	}
 	
 	public List<Photo> getAllFoto() {
-		return (List<Photo>)this.photoRepository.findAll();
+		List<Photo> photos = (List<Photo>)this.photoRepository.findAll();
+		return this.getOrderedPhotos(photos);
 	}
 	
 	public Photo getFoto(Long id) {
 		return this.photoRepository.findById(id).get();
 	}
 	
-	public List<Photo> getAllPhotoByAuthor(Photographer f) {
-		return (List<Photo>)this.photoRepository.findByAuthor(f);
+	public List<Photo> getPhotosByAuthor(Photographer f) {
+		List<Photo> photos = (List<Photo>)this.photoRepository.findByAuthor(f);
+		return this.getOrderedPhotos(photos);
+		
 	}
 	
 	public List<Photo> getPhotosByAlbum(Album album) {
 		return (List<Photo>)this.photoRepository.findByAlbum(album);
+	}
+	
+	public List<Photo> getOrderedPhotos(List<Photo> photos) {
+		Collections.sort(photos, Collections.reverseOrder());
+		return photos;	
 	}
 
 	
