@@ -79,4 +79,11 @@ public class WebPhotoController {
 		return home(model);
 	}
 	
+	@RequestMapping(value = "/search", method = RequestMethod.GET) 
+	public String searchPhoto(Model model, @RequestParam("name") String name) {
+		List<Photo> photos = this.photoService.getByName(name);
+		model.addAttribute("photos", photos);
+		return "index";
+	}
+	
 }

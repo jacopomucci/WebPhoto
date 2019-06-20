@@ -15,4 +15,5 @@ public interface PhotoRepository extends CrudRepository<Photo, Long>{
 
 	public List<Photo> findByAuthor(Photographer author);
 	public List<Photo> findByAlbum(Album album);
+	public List<Photo> findByName(String name);
 }

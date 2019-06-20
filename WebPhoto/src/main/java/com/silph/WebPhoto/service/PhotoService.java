@@ -48,6 +48,10 @@ public class PhotoService {
 		return this.photoRepository.findById(id).get();
 	}
 	
+	public List<Photo> getByName (String name) {
+		return this.photoRepository.findByName(name);
+	}
+	
 	public List<Photo> getPhotosByAuthor(Photographer f) {
 		List<Photo> photos = (List<Photo>)this.photoRepository.findByAuthor(f);
 		return this.getOrderedPhotos(photos);
