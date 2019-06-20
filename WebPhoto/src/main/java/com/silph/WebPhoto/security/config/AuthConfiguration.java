@@ -33,6 +33,7 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 		.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/static/images/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/admin/**").hasAnyAuthority("ADMIN")
 			.antMatchers(HttpMethod.POST, "/admin/**").hasAnyAuthority("ADMIN")
 			.anyRequest().authenticated()

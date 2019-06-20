@@ -45,7 +45,7 @@ public class WebPhotoController {
 	
 	
 	@RequestMapping("/") 
-	public String home(HttpServletRequest request, Model model) {
+	public String home(Model model) {
 		model.addAttribute("photos", this.photoService.getAllFoto());
 		model.addAttribute("photographers", this.photographerService.getAll());
 		return "index.html";
@@ -68,6 +68,15 @@ public class WebPhotoController {
 		model.addAttribute("username", details.getUsername());
 		model.addAttribute("role", role);
 		return "admin";
+	}
+	
+	@RequestMapping(value = {"/", "/photo/{id}"}, method = RequestMethod.POST) 
+	public String likePhoto(Model model, @RequestParam("photo") Long photoId) {
+		Photo photo = this.photoService.getFoto(photoId);
+		int likes = photo.getLikes() + 1;
+		photo.setLikes(likes);
+		this.photoService.save(photo);
+		return home(model);
 	}
 	
 }

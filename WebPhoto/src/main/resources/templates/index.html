@@ -8,7 +8,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -56,11 +56,13 @@
             <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
             <p class="card-text" th:text="${photo.description}">Descrizione</p>
             <p class="card-text">di <a th:href="@{${photo.author.username}}" th:text="${photo.author.username}">Autore</a></p>
-            <img class="card-text" src="/images/heart.png">
-            <p class="card-text" th:text="${photo.likes}">Mi piace</p>
+            <form th:action="@{/}" method="POST">
+            	<input type="hidden" name="photo" th:value="${photo.id}">
+            	<button type="submit"><i class="fas fa-heart"></i></button><span class="card-text" th:text="'  ' + ${photo.likes}"></span>
+            </form>
             <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
             	<input type="hidden" name="photoRequested" th:value="${photo.id}">
-	            <button class="btn btn-primary">Richiedi</button>
+	            <button class="btn btn-primary" style="margin-top:10px">Richiedi</button>
             </form>
          </div>
         </div>
@@ -68,7 +70,7 @@
     </div>
   </div>
 
-  <footer class="jumbotron text-center" style="margin: 30px 0 0">
+  <footer class="jumbotron text-center" style="margin: 50px 0 0">
       <p class="float-right">
         <a href="#">Back to top</a>
       </p>
