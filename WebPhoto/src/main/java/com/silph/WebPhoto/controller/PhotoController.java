@@ -53,7 +53,7 @@ public class PhotoController {
 			if (author != null) {
 				Album album = this.albumService.getByAuthorAndName(author, photoForm.getAlbum());
 				if (album != null) {
-					Photo photo = new Photo(photoForm.getName(), photoForm.getDescription(), author, album);
+					Photo photo = new Photo(photoForm.getName(), photoForm.getDescription(), author, album, 0);
 					photo.setFileName(imageFile.getOriginalFilename());
 					try {
 						photoService.savePhotoImage(imageFile, photo);

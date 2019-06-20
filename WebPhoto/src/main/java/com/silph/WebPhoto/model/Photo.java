@@ -29,12 +29,12 @@ public class Photo implements Comparable<Photo> {
 		
 	}
 	
-	public Photo(String name, String description, Photographer author, Album album) {
+	public Photo(String name, String description, Photographer author, Album album, Integer likes) {
 		this.name = name;
 		this.description = description;
 		this.author = author;
 		this.album = album;
-		this.likes = 0;
+		this.likes = likes;
 	}
 	
 	public Long getId() {
