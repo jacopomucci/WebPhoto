@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="ISO-8859-1">
-	<link rel="stylesheet" type="text/css" href="/css/stylesheet.css">
 	<title th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome fotografo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -16,62 +14,35 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand" href="/">WebPhoto</a>
-	    <ul class="navbar-nav">
-      		<li class="nav-item">
-        		<a class="nav-link" href="/photos">Foto</a>
-      		</li>
-      		<li class="nav-item">
-        		<a class="nav-link" href="/photographers">Fotografi</a>
-      		</li>
-      		<li class="nav-item">
-        		<a class="nav-link" href="/admin">Area riservata</a>
-      		</li>
-     		 <li class="nav-item">
-        		<a class="nav-link" href="/login">Login</a>
-      		</li>
-	   	</ul>
-  </nav>
+	<div th:replace="/fragments/header"></div>
 	<div class="container">
-		<div class="row">
-		<div class="col">
-			<div class="card d-flex flex-row flex-wrap">
-				<img src="/images/placeholder-profile.png">
-				<div class="card-block px-4">
-					<h4 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}">Nome e cognome</h4>
-					<p class="card-text" th:text="'Bio: ' +${photographer.biography}">Biografia</p>
+		<div class="row mb-3" >
+			<div class="col-12 col-lg-4">
+				<div class="card">
+					<div class="card-body">
+						<img src="/images/placeholder-profile.png" style="width: 100px; height: auto">
+							<h4 class="card-title" th:text="${photographer.name} + ' ' + ${photographer.surname}"></h4>
+							<p class="card-text" th:text="${photographer.biography}"></p>
+					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		
-		<h3>Foto pi&ugrave; popolari</h3>
-		<div class="row">
-	      <div class="col-md-4" th:each="photo: ${photos}">
+		<h3>Popular photos</h3>
+		<div class="row mb-3">
+	      <div class="col-12 col-md-6 col-lg-4" th:each="photo: ${photos}">
 	        <div class="card col-mb-4 shadow-md">
 	          <a th:href="@{'/photo/' + ${photo.id}}">
 	          	<img th:if="${photo.fileName}" class="card-img-top" th:src="@{${'/uploads/' + photo.fileName}}" style="width:100%">
 	          	<img th:unless="${photo.fileName}" class="card-img-top" src="/images/placeholder.png" style="width:100%">
 	          </a>
 	          <div class="card-body">
-	          	<i class="fas fa-heart"></i><span class="card-text" th:text="'  ' + ${photo.likes}"></span>
+	          	<i class="fas fa-heart mr-1"></i><span class="card-text" th:text="${photo.likes}"></span>
 	            <h4 class="card-title" th:text="${photo.name}">Nome foto</h4>
 	            <p class="card-text" th:text="${photo.description}">Descrizione</p>
-	            <form th:action="@{/photoRequest}" method="GET" th:object="${photoRequest}">
-	            	<input type="hidden" name="photoRequested" th:value="${photo.id}">
-		            <button class="btn btn-primary">Richiedi</button>
-	            </form>
 	         </div>
 	        </div>
 	      </div>
 	    </div>
-		<h3>Album di questo fotografo</h3>
-			<ul>
-				<li th:each="a: ${album}">
-					<a th:href="@{'/' + ${photographer.username} + '/album/' + ${a.name}}" th:text="${a.name}">Nome album</a>
-				</li>
-			</ul>
 	</div>
 	
 </body>
