@@ -3,7 +3,6 @@ package com.silph.WebPhoto.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.silph.WebPhoto.model.Album;
@@ -25,8 +24,8 @@ public class DbPopulation implements ApplicationRunner {
 		
 		@Override
 		public void run(ApplicationArguments agrs) throws Exception {
-			this.deleteAll();
-			this.populateDB();
+//			this.deleteAll();
+//			this.populateDB();
 		}
 		
 		private void deleteAll() {
@@ -36,7 +35,7 @@ public class DbPopulation implements ApplicationRunner {
 		private void populateDB() {
 			
 			User admin = new User("admin", "admin@silph.com", null, "ADMIN");
-			String adminPassword = new BCryptPasswordEncoder().encode("password");
+			String adminPassword = "password";
 			admin.setPassword(adminPassword);
 			admin = this.userRepository.save(admin);	
 			

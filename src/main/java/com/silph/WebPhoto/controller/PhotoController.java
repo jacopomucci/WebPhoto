@@ -6,11 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,6 +19,10 @@ import com.silph.WebPhoto.service.AlbumService;
 import com.silph.WebPhoto.service.PhotoService;
 import com.silph.WebPhoto.service.PhotoValidator;
 import com.silph.WebPhoto.service.PhotographerService;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 public class PhotoController {
@@ -105,18 +105,38 @@ public class PhotoController {
 	public String request(@PathVariable("id") Long id, Model model) {
 		return "request";
 	}
-	
-	
+
+	@PostMapping("/photos/{id}/like")
+	@ResponseBody()
+	public int likePhoto(@PathVariable("id") Long photoId) {
+		Photo photo = this.photoService.getFoto(photoId);
+		int updatedLikes = photo.getLikes() + 1;
+		photo.setLikes(updatedLikes);
+		this.photoService.save(photo);
+		return updatedLikes;
+	}
+
+	@GetMapping("/photos")
+	public ModelAndView getListOfPhotos(@RequestParam("q") String query) {
+		List<Photo> photos = this.photoService.getAllFoto();
+		List<Photo> filteredPhotos = photos.stream().filter(p -> {
+			boolean t = p.getName().toLowerCase().contains(query.toLowerCase());
+			return t;
+		}).collect(Collectors.toList());
+		ModelAndView mv = new ModelAndView("fragments/photos-grid");
+		mv.addObject("photos", filteredPhotos);
+		return mv;
+	}
+
 	@RequestMapping("/photo/{id}")
-	public String getFoto(@PathVariable("id") Long id, Model model) {
+	public String getPhoto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("photo", this.photoService.getFoto(id));
-		return "photo.html";
+		return "photo";
 	}
 	
 	@RequestMapping("/photos")
 	public String photos(Model model) {
 		return ("redirect:/");
 	}
-	
 	
 }

@@ -1,5 +1,8 @@
 package com.silph.WebPhoto.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +17,18 @@ public class Photo implements Comparable<Photo> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	private String name;
 	private String description;
 	private Integer likes;
 	private String path;
 	private String fileName;
-	
+
+	@JsonIgnore
 	@ManyToOne
 	private Photographer author;
+
+	@JsonIgnore
 	@ManyToOne
 	private Album album;
 	

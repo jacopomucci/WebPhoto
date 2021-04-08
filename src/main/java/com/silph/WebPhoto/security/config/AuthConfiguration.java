@@ -1,3 +1,4 @@
+/*
 package com.silph.WebPhoto.security.config;
 
 
@@ -70,3 +71,4 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
 	}
 
 }
+*/

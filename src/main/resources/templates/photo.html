@@ -14,36 +14,18 @@
 	<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
-	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand" href="/">WebPhoto</a>
-	    <ul class="navbar-nav">
-      		<li class="nav-item">
-        		<a class="nav-link" href="/photos">Foto</a>
-      		</li>
-      		<li class="nav-item">
-        		<a class="nav-link" href="/photographers">Fotografi</a>
-      		</li>
-      		<li class="nav-item">
-        		<a class="nav-link" href="/admin">Area riservata</a>
-      		</li>
-     		 <li class="nav-item">
-        		<a class="nav-link" href="/login">Login</a>
-      		</li>
-	   	</ul>
-  </nav>
-	
+	<div th:replace="fragments/header"></div>
 	<div class="container">
-		<div th:if="${photo.fileName}">
-			<img th:src="@{${'/uploads/' + photo.fileName}}">
+		<div th:if="${photo.fileName}" class="mb-3">
+			<img th:src="@{${'/uploads/' + photo.fileName}}" style="max-width: 100%">
 		</div>
 		<div th:unless="${photo.fileName}">
-			<img src="/images/placeholder.png">	
+			<img src="/images/placeholder.png" style="width: 100%; max-height: 500px">
 		</div>
-		<p style="margin-top: 10px">Questa foto ha ricevuto <span class="card-text" th:text="'  ' + ${photo.likes}"></span> <i class="fas fa-heart"></i>
-		<h1 th:text="${photo.name}"></h1>
-		<h5 th:text="${photo.description}">Testo descrizione</h5>
-		<h3>di <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h3>
+		<i class="fas fa-heart"></i><span class="card-text" th:text="${photo.likes}"></span>
+		<h2 th:text="${photo.name}"></h2>
+		<p th:text="${photo.description}"></p>
+		<h4>Author: <a th:href="@{'/' + ${photo.author.username}}" th:text="${photo.author.name} + ' ' + ${photo.author.surname}">Nome e cognome autore</a></h4>
 		<h4>Album: <a th:href="@{'/' + ${photo.author.username} + '/album/' + ${photo.album.name}}" th:text="${photo.album.name}">Nome album</a></h4>
 	</div>
 </body>

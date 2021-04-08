@@ -48,7 +48,6 @@
 				<p class="alert alert-warning" th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Incorrect name</p>
 			</div>
 			<div class="form-group">
-				
 				<label for="author">Autore: </label>
 				<input type="text" class="form-control" name="author" placeholder="MarioR" th:field="*{author}">
 				<small class="form-text text-muted">Inserisci un fotografo gi&agrave; esistente. Oppure <a href="/admin/newPhotographer">crealo ora</a></small>

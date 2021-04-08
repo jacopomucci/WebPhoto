@@ -7,8 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,32 +39,31 @@ public class WebPhotoController {
 	private PhotoService photoService;
 	@Autowired
 	private PhotoRequestService photoRequestService;
-	
-	
-	
+
 	@RequestMapping("/") 
 	public String home(Model model) {
 		model.addAttribute("photos", this.photoService.getAllFoto());
 		model.addAttribute("photographers", this.photographerService.getAll());
-		return "index.html";
+		return "index";
 	}
 	
 	@RequestMapping("/welcome")
 	public String welcome(Model model) {
-		UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String role = details.getAuthorities().iterator().next().getAuthority();
 		model.addAttribute("username", details.getUsername());
-		model.addAttribute("role", role);
+		model.addAttribute("role", role);*/
 		
 		return "welcome";
 	}
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(Model model) {
-		UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		/*UserDetails details = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String role = details.getAuthorities().iterator().next().getAuthority();
 		model.addAttribute("username", details.getUsername());
 		model.addAttribute("role", role);
+		return "admin";*/
 		return "admin";
 	}
 	
