@@ -100,11 +100,6 @@ public class PhotoController {
     	return modelAndView;
     	
     }
-	
-	@RequestMapping("/request/{id}") 
-	public String request(@PathVariable("id") Long id, Model model) {
-		return "request";
-	}
 
 	@PostMapping("/photos/{id}/like")
 	@ResponseBody()

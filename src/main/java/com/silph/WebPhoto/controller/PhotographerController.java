@@ -54,7 +54,7 @@ public class PhotographerController {
 		}
 	}
 	
-	@RequestMapping("photographers")
+	@RequestMapping("/photographers")
 	public String getListaFotografi(Model model) {
 		model.addAttribute("photographers", this.photographerService.getAll());
 		return "photographers";
