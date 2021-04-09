@@ -43,3 +43,25 @@ button {
 	transform: scale(1.2);
 }
 
+.input-container {
+	position: relative;
+}
+
+.app-dropdown {
+	position: absolute;
+	top: 40px;
+	height: 100px;
+	width: 197px;
+	background: white;
+	z-index: 1;
+	border: 1px solid black;
+	display: none;
+	overflow-y: auto;
+}
+
+.dropdown-item {
+	border-bottom: 1px solid grey;
+	margin-bottom: 5px;
+}
+
+

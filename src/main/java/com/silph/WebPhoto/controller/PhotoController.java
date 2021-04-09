@@ -123,6 +123,17 @@ public class PhotoController {
 		return mv;
 	}
 
+	@GetMapping("/ajax/photos")
+	@ResponseBody
+	public List<Photo> getListOfPhotosJSON(@RequestParam("q") String query) {
+		List<Photo> photos = this.photoService.getAllFoto();
+		List<Photo> filteredPhotos = photos.stream().filter(p -> {
+			boolean t = p.getName().toLowerCase().contains(query.toLowerCase());
+			return t;
+		}).collect(Collectors.toList());
+		return filteredPhotos;
+	}
+
 	@RequestMapping("/photo/{id}")
 	public String getPhoto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("photo", this.photoService.getFoto(id));
